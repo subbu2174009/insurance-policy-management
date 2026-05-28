@@ -1,0 +1,278 @@
+```html id="6icd42"
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+    content="width=device-width, initial-scale=1.0">
+
+    <title>Customer Registration</title>
+
+    <link rel="stylesheet" href="/style.css">
+
+</head>
+
+<body>
+
+<div class="auth-container">
+
+    <div class="auth-box">
+
+        <div style="text-align:center;margin-bottom:25px;">
+
+            <h1 style="margin-bottom:10px;">
+                Customer Registration
+            </h1>
+
+            <p style="color:#64748b;">
+                Create Your Insurance Customer Account
+            </p>
+
+        </div>
+
+        <form
+        action="/register-user"
+        method="POST"
+        onsubmit="return validateForm()">
+
+            <label>
+                Customer Username
+            </label>
+
+            <input
+            type="text"
+            id="username"
+            name="username"
+            placeholder="Create Username"
+            autocomplete="off">
+
+            <small
+            style="
+            color:#64748b;
+            display:block;
+            margin-top:6px;
+            ">
+            Use 5-20 characters with letters, numbers or underscore
+            </small>
+
+            <label
+            style="
+            margin-top:18px;
+            display:block;
+            ">
+            Password
+            </label>
+
+            <div style="position:relative;">
+
+                <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Create Strong Password">
+
+                <span
+                onclick="togglePassword()"
+                style="
+                position:absolute;
+                right:15px;
+                top:16px;
+                cursor:pointer;
+                color:#2563eb;
+                font-size:14px;
+                ">
+                Show
+                </span>
+
+            </div>
+
+            <div
+            id="strengthBox"
+            style="
+            margin-top:10px;
+            font-size:14px;
+            font-weight:600;
+            ">
+            </div>
+
+            <label
+            style="
+            margin-top:18px;
+            display:block;
+            ">
+            Confirm Password
+            </label>
+
+            <input
+            type="password"
+            id="confirmPassword"
+            placeholder="Confirm Password">
+
+            <input
+            type="hidden"
+            name="role"
+            value="customer">
+
+            <p
+            id="error"
+            class="error"
+            style="margin-top:12px;">
+            </p>
+
+            <button>
+                Create Customer Account
+            </button>
+
+        </form>
+
+        <div
+        style="
+        text-align:center;
+        margin-top:20px;
+        ">
+
+            <p style="margin-bottom:10px;">
+
+                Already Registered?
+
+            </p>
+
+            <a href="/customer-login">
+
+                <button type="button">
+
+                    Login Here
+
+                </button>
+
+            </a>
+
+        </div>
+
+        <div
+        style="
+        text-align:center;
+        margin-top:18px;
+        ">
+
+            <a href="/">
+
+                ← Back to Main Page
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+function validateForm() {
+
+    let username =
+    document.getElementById("username").value.trim();
+
+    let password =
+    document.getElementById("password").value;
+
+    let confirmPassword =
+    document.getElementById("confirmPassword").value;
+
+    let error =
+    document.getElementById("error");
+
+    error.innerHTML = "";
+
+    const usernameRegex =
+    /^[A-Za-z0-9_]{5,20}$/;
+
+    if(!usernameRegex.test(username)) {
+
+        error.innerHTML =
+        "Username must be 5-20 characters and only contain letters, numbers or underscore.";
+
+        return false;
+    }
+
+    const passwordRegex =
+    /^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*]).{8,}$/;
+
+    if(!passwordRegex.test(password)) {
+
+        error.innerHTML =
+        "Password must contain uppercase letter, number and special character.";
+
+        return false;
+    }
+
+    if(password !== confirmPassword) {
+
+        error.innerHTML =
+        "Passwords do not match.";
+
+        return false;
+    }
+
+    return true;
+}
+
+function togglePassword() {
+
+    let password =
+    document.getElementById("password");
+
+    if(password.type === "password") {
+
+        password.type = "text";
+
+    } else {
+
+        password.type = "password";
+    }
+}
+
+document
+.getElementById("password")
+.addEventListener("keyup", function() {
+
+    let password = this.value;
+
+    let box =
+    document.getElementById("strengthBox");
+
+    if(password.length < 6) {
+
+        box.innerHTML =
+        "Weak Password";
+
+        box.style.color = "red";
+    }
+
+    else if(password.length < 10) {
+
+        box.innerHTML =
+        "Medium Strength Password";
+
+        box.style.color = "orange";
+    }
+
+    else {
+
+        box.innerHTML =
+        "Strong Password";
+
+        box.style.color = "green";
+    }
+});
+
+</script>
+
+</body>
+
+</html>
+```
